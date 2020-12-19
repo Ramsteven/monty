@@ -38,6 +38,8 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+#define LINE_SIZE 100
+
 int _strlen(char *str);
 int _strncmp(const char *s1, const char *s2, int n);
 char **_strtok(char *str, char delimiter);
@@ -49,5 +51,9 @@ int pot(int x, int y);
 void *_calloc(unsigned int nmemb, unsigned int size);
 void (*get_op(char *s))(stack_t **stack, unsigned int line_number);
 void push_function(stack_t **stack, unsigned int line_number);
+stack_t *create_node(void);
+void pall_function(stack_t **stack, unsigned int line_number);
+int get_lines(char *file);
+void free_dp(char **to_free);
 //int pop_function(char *n);
 #endif /*MONTY_H*/

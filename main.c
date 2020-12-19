@@ -4,15 +4,19 @@
  *
  */
 
+
+
 int main(int argc, char *argv[])
 {
 	FILE *fp = NULL;
 	char *line = NULL, **tokens = NULL;
 	int i = 0;
 	void (*f_check)(stack_t **stack, unsigned int line_number);
-	stack_t *STACK;
+	stack_t *STACK = NULL;
 
-	line = malloc(50);
+	line = malloc(sizeof(char) * LINE_SIZE);
+	if (!line)
+		return (1);
 
 	fp = fopen(argv[1], "r");
 	if (fp == NULL)
@@ -21,7 +25,7 @@ int main(int argc, char *argv[])
 		return (1);
 	}
 
-	while (fgets(line, 50, fp))
+	while (fgets(line, LINE_SIZE, fp))
 	{
 		*(line + strlen(line) - 1) = '\0';
 		tokens = _strtok(line, 32);
@@ -30,7 +34,10 @@ int main(int argc, char *argv[])
 		f_check = get_op(*tokens);
 		if (f_check)
 			get_op(*tokens)(&STACK, atoi(*(tokens + 1)));
- 		free(tokens);
+/*		else
+			mensaje de error
+*/
+ 		free_dp(tokens);
 	}
 	free(line);
 	fclose(fp);
