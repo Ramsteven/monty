@@ -9,6 +9,8 @@ int main(int argc, char *argv[])
 	FILE *fp = NULL;
 	char *line = NULL, **tokens = NULL;
 	int i = 0;
+	void (*f_check)(stack_t **stack, unsigned int line_number);
+	stack_t *STACK;
 
 	line = malloc(50);
 
@@ -23,8 +25,12 @@ int main(int argc, char *argv[])
 	{
 		*(line + strlen(line) - 1) = '\0';
 		tokens = _strtok(line, 32);
-		printf("%s, %s\n", *(tokens), *(tokens + 1));
-		free(tokens);
+
+		// function pointer check the return value
+		f_check = get_op(*tokens);
+		if (f_check)
+			get_op(*tokens)(&STACK, atoi(*(tokens + 1)));
+ 		free(tokens);
 	}
 	free(line);
 	fclose(fp);

@@ -24,7 +24,7 @@ typedef struct stack_s
         struct stack_s *next;
 } stack_t;
 
-/**
+/** 
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
  * @f: function to handle the opcode
@@ -47,6 +47,7 @@ char *int_to_string(int number);
 long absolute(long n);
 int pot(int x, int y);
 void *_calloc(unsigned int nmemb, unsigned int size);
-
-
+void (*get_op(char *s))(stack_t **stack, unsigned int line_number);
+void push_function(stack_t **stack, unsigned int line_number);
+//int pop_function(char *n);
 #endif /*MONTY_H*/
