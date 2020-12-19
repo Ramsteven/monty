@@ -29,11 +29,14 @@ int main(int argc, char *argv[])
 	{
 		*(line + strlen(line) - 1) = '\0';
 		tokens = _strtok(line, 32);
-
+		if (*(tokens + 1))
+			if((atoi(*(tokens + 1)) == 0 && *(*(tokens + 1)) != '0' ))
+				exit(4);
+		//check if token + 1 is empty
 		// function pointer check the return value
 		f_check = get_op(*tokens);
 		if (f_check)
-			get_op(*tokens)(&STACK, atoi(*(tokens + 1)));
+			get_op(*tokens)(&STACK, (*(tokens + 1))? atoi(*(tokens + 1)): 0);
 /*		else
 			mensaje de error
 */

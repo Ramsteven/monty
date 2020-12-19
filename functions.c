@@ -10,6 +10,8 @@ void (*get_op(char *s))(stack_t **stack, unsigned int line_number)
 	instruction_t ops[] = {
 		{"push", push_function},
 		{"pall", pall_function},
+		{"pint", pint_function},
+		{"pop", pop_function},
 		{NULL, NULL}
 	};
 	int i = 0;
@@ -89,4 +91,52 @@ void pall_function(stack_t **stack, unsigned int line_number)
 		h = h->next;
 		i++;
 	}
+}
+
+void pint_function(stack_t **stack, unsigned int line_number)
+{
+	printf("%d\n", (*stack)->n);	
+}
+
+
+void pop_function(stack_t **head, unsigned int index)
+{
+	stack_t *tmp = *head;
+	unsigned int i = 0;
+
+	/* size of list*/
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	if (index == 0)
+	{
+		if (i != 0)
+		{
+			tmp = *head;
+			if (tmp->next)
+				tmp->next->prev = NULL;
+			*head = tmp->next;
+			free(tmp);
+		} else
+			return;
+	}
+	else if (index > i)
+		return ;
+	else if (i == index)
+	{
+		tmp->prev->next = NULL;
+		free(tmp);
+	}
+	else
+	{
+		tmp = *head;
+		for (i = 0; i < index && tmp; i++)
+			tmp = tmp->next;
+
+		tmp->prev->next = tmp->next;
+		tmp->next->prev = tmp->prev;
+		free(tmp);
+	}	
 }
