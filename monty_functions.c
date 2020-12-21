@@ -11,7 +11,9 @@ void (*get_op(char *s))(stack_t **stack, unsigned int line_number)
 		{"push", push_function},
 		{"pall", pall_function},
 		{"pint", pint_function},
+		{"swap", swap_function},
 		{"pop", pop_function},
+		{"add", add_function},
 		{NULL, NULL}
 	};
 	int i = 0;
@@ -37,16 +39,23 @@ void (*get_op(char *s))(stack_t **stack, unsigned int line_number)
 void push_function(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new_node = NULL;
+	int n = 0;
 
-	if (stack == NULL)
-		return;
+	if(*(data.tokens + 1) == NULL || (atoi(*(data.tokens + 1)) == 0 && *(*(data.tokens + 1)) != '0'))
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		free_leaks(stack);
+		exit(EXIT_FAILURE);
+	}
+	else
+		n = atoi(*(data.tokens + 1));
 
 	new_node = create_node();
 	if (new_node == NULL)
 		return;
 	new_node->next = *stack;
 	new_node->prev = NULL;
-	new_node->n = line_number;
+	new_node->n = n;
 
 	if (*stack)
 		(*stack)->prev = new_node;
@@ -97,7 +106,7 @@ void pint_function(stack_t **stack, unsigned int line_number)
 {
 	if(!(*stack))
 	{
-		fprintf(stderr,"L%d: can't pint, stack empty\n",data.line_counter); //here continue
+		fprintf(stderr,"L%d: can't pint, stack empty\n", line_number); //here continue
 		free_leaks(stack);
 		exit(EXIT_FAILURE);
 	}
@@ -106,14 +115,15 @@ void pint_function(stack_t **stack, unsigned int line_number)
 }
 
 
-void pop_function(stack_t **head, unsigned int index)
+void pop_function(stack_t **head, unsigned int line_number)
 {
 	stack_t *tmp = *head;
 	unsigned int i = 0;
-	index = 0;
+	int index = 0;
+
 	if (!*head)
 	{
-		fprintf(stderr, "L%d: can't pop an empty stack\n", data.line_counter);
+		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
 		free_leaks(head);
 		exit(EXIT_FAILURE);
 	}
@@ -154,3 +164,54 @@ void pop_function(stack_t **head, unsigned int index)
 		free(tmp);
 	}
 }
+
+/**
+ * dlistint_len - Calculates the length of a DLL
+ *
+ * @h: The head of the DLL
+ *
+ * Return: The length of the DLL
+ */
+
+int stack_len(stack_t *h)
+{
+	int i = 0;
+
+	while (h)
+	{
+		i++;
+		h = h->next;
+	}
+
+	return (i);
+}
+
+void swap_function(stack_t **stack, unsigned int line_number)
+{
+	int aux;
+
+	if (stack_len(*stack) < 2)
+	{
+		fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
+		free_leaks(stack);
+		exit(EXIT_FAILURE);
+	}
+
+	aux = (*stack)->n;
+	(*stack)->n = (*stack)->next->n;
+	(*stack)->next->n = aux;
+}
+
+void add_function(stack_t **stack, unsigned int line_number)
+{
+	if (stack_len(*stack) < 2)
+	{
+		fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
+		free_leaks(stack);
+		exit(EXIT_FAILURE);
+	}
+
+	(*stack)->next->n += (*stack)->n;
+	pop_function(stack, line_number);
+}
+

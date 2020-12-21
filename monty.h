@@ -24,7 +24,7 @@ typedef struct stack_s
         struct stack_s *next;
 } stack_t;
 
-/** 
+/**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
  * @f: function to handle the opcode
@@ -39,7 +39,6 @@ typedef struct instruction_s
 } instruction_t;
 
 typedef struct {
-	int line_counter;
 	FILE *fp;
 	char *line;
 	char **tokens;
@@ -71,6 +70,9 @@ void free_dp(char **to_free);
 void pint_function(stack_t **stack, unsigned int line_number);
 void pop_function(stack_t **head, unsigned int line_number);
 void free_list(stack_t *head);
-//int pop_function(char *n);
 void free_leaks(stack_t **stack);
+int stack_len(stack_t *h);
+void swap_function(stack_t **stack, unsigned int line_number);
+void add_function(stack_t **stack, unsigned int line_number);
+
 #endif /*MONTY_H*/
