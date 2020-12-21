@@ -38,7 +38,17 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-typedef struct {
+/**
+ * struct handle_s - Elements to be freed before exit
+ * @fp: Pointer to current working file
+ * @line: Space allocated to store line data
+ * @tokens: Tokens of the line readed
+ *
+ * Description: All the elements you need to free
+ * for stack, queues, LIFO, FIFO Holberton project
+ */
+typedef struct handle_s
+{
 	FILE *fp;
 	char *line;
 	char **tokens;
@@ -48,36 +58,41 @@ handle_free data;
 
 #define LINE_SIZE 100
 
-/* main_functions.c */
+/* main.c */
+void (*get_op(char *s))(stack_t **stack, unsigned int line_number);
 FILE *get_file(char *file_name, int args);
 char *allocate_line(FILE *fp);
 
-int _strlen(char *str);
-int _strncmp(const char *s1, const char *s2, int n);
-char **_strtok(char *str, char delimiter);
+/* free.c */
+void free_leaks(stack_t **stack);
+void free_stack(stack_t *head);
+void free_dp(char **to_free);
+
+/* tokenizer.c */
+char **tokenizer(char *str, char delimiter);
 char *write_word(char *str, char delimiter);
 int length_d(char *str, char delimiter);
-char *int_to_string(int number);
-long absolute(long n);
-int pot(int x, int y);
 void *_calloc(unsigned int nmemb, unsigned int size);
-void (*get_op(char *s))(stack_t **stack, unsigned int line_number);
-void push_function(stack_t **stack, unsigned int line_number);
+
+/* aux_func.c */
+int stack_len(stack_t *stack);
 stack_t *create_node(void);
+
+/* monty_functions.c */
+void push_function(stack_t **stack, unsigned int line_number);
 void pall_function(stack_t **stack, unsigned int line_number);
-int get_lines(char *file);
-void free_dp(char **to_free);
 void pint_function(stack_t **stack, unsigned int line_number);
 void pop_function(stack_t **head, unsigned int line_number);
-void free_list(stack_t *head);
-void free_leaks(stack_t **stack);
-int stack_len(stack_t *h);
 void swap_function(stack_t **stack, unsigned int line_number);
+
+/* monty_functions1.c */
 void nop_function(stack_t **stack, unsigned int line_number);
-//aritmetic
 void add_function(stack_t **stack, unsigned int line_number);
 void sub_function(stack_t **stack, unsigned int line_number);
 void mul_function(stack_t **stack, unsigned int line_number);
 void div_function(stack_t **stack, unsigned int line_number);
+
+/* monty_functions2.c */
 void mod_function(stack_t **stack, unsigned int line_number);
+
 #endif /*MONTY_H*/
