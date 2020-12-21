@@ -95,8 +95,8 @@ void pall_function(stack_t **stack, unsigned int line_number)
 
 void pint_function(stack_t **stack, unsigned int line_number)
 {
-	if(!stack)
-		fprintf(stderr,"L%d: can't pint, stack empty",); //here continue
+	if(!(*stack))
+		fprintf(stderr,"L%d: can't pint, stack empty",data.line_counter); //here continue
 	else
 		printf("%d\n", (*stack)->n);
 }

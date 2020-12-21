@@ -6,47 +6,44 @@
 
 int main(int argc, char *argv[])
 {
-	FILE *fp = NULL;
-	char *line = NULL, **tokens = NULL;
-	int i = 0;
 	void (*f_check)(stack_t **stack, unsigned int line_number);
 	stack_t *STACK = NULL;
+	data.line_counter = 0;
+	data.fp = get_file(argv[1], argc);
+	data.line = allocate_line(data.fp);
 
-	fp = get_file(argv[1], argc);
-	line = allocate_line(fp);
-
-	while (fgets(line, LINE_SIZE, fp) && ++i)
+	while (fgets(data.line, LINE_SIZE, data.fp) && ++data.line_counter)
 	{
-		*(line + strlen(line) - 1) = '\0';
-		tokens = _strtok(line, 32);
-		if (tokens == NULL)
+		*(data.line + strlen(data.line) - 1) = '\0';
+		data.tokens = _strtok(data.line, 32);
+		if (data.tokens == NULL)
 			continue;
-		if (!strcmp(*(tokens), "push"))
-			if(*(tokens + 1) == NULL || (atoi(*(tokens + 1)) == 0 && *(*(tokens + 1)) != '0'))
+		if (!strcmp(*(data.tokens), "push"))
+			if(*(data.tokens + 1) == NULL || (atoi(*(data.tokens + 1)) == 0 && *(*(data.tokens + 1)) != '0'))
 			{
-				fclose(fp);
-				free(line);
+				fclose(data.fp);
+				free(data.line);
 				free_list(STACK);
-				free_dp(tokens);
-				fprintf(stderr, "L%d: usage: push integer\n", i);
+				free_dp(data.tokens);
+				fprintf(stderr, "L%d: usage: push integer\n", data.line_counter);
 				exit(EXIT_FAILURE);
 			}
-		f_check = get_op(*tokens);
+		f_check = get_op(*(data.tokens));
 		if (f_check)
-			get_op(*tokens)(&STACK, (*(tokens + 1))? atoi(*(tokens + 1)): 0);
+			get_op(*data.tokens)(&STACK, (*(data.tokens + 1))? atoi(*(data.tokens + 1)): 0);
 		else
 		{
-			fclose(fp);
-			free(line);
+			fclose(data.fp);
+			free(data.line);
 			free_list(STACK);
-			fprintf(stderr, "L%d: unknown instruction %s\n", i, *(tokens));
-			free_dp(tokens);
+			fprintf(stderr, "L%d: unknown instruction %s\n", data.line_counter, *(data.tokens));
+			free_dp(data.tokens);
 			exit(EXIT_FAILURE);
 		}
- 		free_dp(tokens);
+ 		free_dp(data.tokens);
 	}
 	free_list(STACK);
-	free(line);
-	fclose(fp);
+	free(data.line);
+	fclose(data.fp);
 	return (0);
 }
