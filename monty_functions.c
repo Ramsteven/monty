@@ -14,6 +14,11 @@ void (*get_op(char *s))(stack_t **stack, unsigned int line_number)
 		{"swap", swap_function},
 		{"pop", pop_function},
 		{"add", add_function},
+		{"nop", nop_function},
+		{"mul", mul_function},
+		{"div", div_function},
+		{"mod", mod_function},
+		{"sub", sub_function},
 		{NULL, NULL}
 	};
 	int i = 0;
@@ -214,4 +219,77 @@ void add_function(stack_t **stack, unsigned int line_number)
 	(*stack)->next->n += (*stack)->n;
 	pop_function(stack, line_number);
 }
+
+void nop_function(stack_t **stack, unsigned int line_number)
+{
+	return;
+}
+
+
+void sub_function(stack_t **stack, unsigned int line_number)
+{
+	if (stack_len(*stack) < 2)
+	{
+		fprintf(stderr, "L%d: can't sub, stack too short\n", line_number);
+		free_leaks(stack);
+		exit(EXIT_FAILURE);
+	}
+
+	(*stack)->next->n -= (*stack)->n;
+	pop_function(stack, line_number);
+}
+
+
+void mul_function(stack_t **stack, unsigned int line_number)
+{
+	if (stack_len(*stack) < 2)
+	{
+		fprintf(stderr, "L%d: can't mul, stack too short\n", line_number);
+		free_leaks(stack);
+		exit(EXIT_FAILURE);
+	}
+
+	(*stack)->next->n *= (*stack)->n;
+	pop_function(stack, line_number);
+}
+
+
+void div_function(stack_t **stack, unsigned int line_number)
+{
+	if (stack_len(*stack) < 2)
+	{
+		fprintf(stderr, "L%d: can't div, stack too short\n", line_number);
+		free_leaks(stack);
+		exit(EXIT_FAILURE);
+	}
+	if ((*stack)->n == 0)
+{
+		fprintf(stderr, "L%d: division by zero\n", line_number);
+		free_leaks(stack);
+		exit(EXIT_FAILURE);
+	}
+
+	(*stack)->next->n /= (*stack)->n;
+	pop_function(stack, line_number);
+}
+
+void mod_function(stack_t **stack, unsigned int line_number)
+{
+	if (stack_len(*stack) < 2)
+	{
+		fprintf(stderr, "L%d: can't mod, stack too short\n", line_number);
+		free_leaks(stack);
+		exit(EXIT_FAILURE);
+	}
+	if ((*stack)->n == 0)
+{
+		fprintf(stderr, "L%d: division by zero\n", line_number);
+		free_leaks(stack);
+		exit(EXIT_FAILURE);
+	}
+
+	(*stack)->next->n %= (*stack)->n;
+	pop_function(stack, line_number);
+}
+
 

@@ -73,6 +73,11 @@ void free_list(stack_t *head);
 void free_leaks(stack_t **stack);
 int stack_len(stack_t *h);
 void swap_function(stack_t **stack, unsigned int line_number);
+void nop_function(stack_t **stack, unsigned int line_number);
+//aritmetic
 void add_function(stack_t **stack, unsigned int line_number);
-
+void sub_function(stack_t **stack, unsigned int line_number);
+void mul_function(stack_t **stack, unsigned int line_number);
+void div_function(stack_t **stack, unsigned int line_number);
+void mod_function(stack_t **stack, unsigned int line_number);
 #endif /*MONTY_H*/
