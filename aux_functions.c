@@ -37,3 +37,23 @@ void free_dp(char **to_free)
 
 	free(to_free);
 }
+
+
+/**
+ * free_dlistint - frees a DLL
+ *
+ * @head: The head of the DLL
+ */
+
+void free_list(stack_t *head)
+{
+	stack_t *walker = head;
+
+	while (walker)
+	{
+		walker = head->next;
+		free(head);
+		head = walker;
+	}
+
+}

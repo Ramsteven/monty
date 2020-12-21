@@ -4,8 +4,6 @@
  *
  */
 
-
-
 int main(int argc, char *argv[])
 {
 	FILE *fp = NULL;
@@ -14,34 +12,40 @@ int main(int argc, char *argv[])
 	void (*f_check)(stack_t **stack, unsigned int line_number);
 	stack_t *STACK = NULL;
 
-	line = malloc(sizeof(char) * LINE_SIZE);
-	if (!line)
-		return (1);
+	fp = get_file(argv[1], argc);
+	line = allocate_line(fp);
 
-	fp = fopen(argv[1], "r");
-	if (fp == NULL)
-	{
-		printf("Couldn't open file %s\n", argv[1]);
-		return (1);
-	}
-
-	while (fgets(line, LINE_SIZE, fp))
+	while (fgets(line, LINE_SIZE, fp) && ++i)
 	{
 		*(line + strlen(line) - 1) = '\0';
 		tokens = _strtok(line, 32);
-		if (*(tokens + 1))
-			if((atoi(*(tokens + 1)) == 0 && *(*(tokens + 1)) != '0' ))
-				exit(4);
-		//check if token + 1 is empty
-		// function pointer check the return value
+		if (tokens == NULL)
+			continue;
+		if (!strcmp(*(tokens), "push"))
+			if(*(tokens + 1) == NULL || (atoi(*(tokens + 1)) == 0 && *(*(tokens + 1)) != '0'))
+			{
+				fclose(fp);
+				free(line);
+				free_list(STACK);
+				free_dp(tokens);
+				fprintf(stderr, "L%d: usage: push integer\n", i);
+				exit(EXIT_FAILURE);
+			}
 		f_check = get_op(*tokens);
 		if (f_check)
 			get_op(*tokens)(&STACK, (*(tokens + 1))? atoi(*(tokens + 1)): 0);
-/*		else
-			mensaje de error
-*/
+		else
+		{
+			fclose(fp);
+			free(line);
+			free_list(STACK);
+			fprintf(stderr, "L%d: unknown instruction %s\n", i, *(tokens));
+			free_dp(tokens);
+			exit(EXIT_FAILURE);
+		}
  		free_dp(tokens);
 	}
+	free_list(STACK);
 	free(line);
 	fclose(fp);
 	return (0);

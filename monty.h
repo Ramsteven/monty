@@ -40,6 +40,10 @@ typedef struct instruction_s
 
 #define LINE_SIZE 100
 
+/* main_functions.c */
+FILE *get_file(char *file_name, int args);
+char *allocate_line(FILE *fp);
+
 int _strlen(char *str);
 int _strncmp(const char *s1, const char *s2, int n);
 char **_strtok(char *str, char delimiter);
@@ -57,5 +61,6 @@ int get_lines(char *file);
 void free_dp(char **to_free);
 void pint_function(stack_t **stack, unsigned int line_number);
 void pop_function(stack_t **head, unsigned int line_number);
+void free_list(stack_t *head);
 //int pop_function(char *n);
 #endif /*MONTY_H*/
