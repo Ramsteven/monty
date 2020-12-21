@@ -96,7 +96,11 @@ void pall_function(stack_t **stack, unsigned int line_number)
 void pint_function(stack_t **stack, unsigned int line_number)
 {
 	if(!(*stack))
-		fprintf(stderr,"L%d: can't pint, stack empty",data.line_counter); //here continue
+	{
+		fprintf(stderr,"L%d: can't pint, stack empty\n",data.line_counter); //here continue
+		free_leaks(stack);
+		exit(EXIT_FAILURE);
+	}
 	else
 		printf("%d\n", (*stack)->n);
 }
@@ -106,6 +110,13 @@ void pop_function(stack_t **head, unsigned int index)
 {
 	stack_t *tmp = *head;
 	unsigned int i = 0;
+	index = 0;
+	if (!*head)
+	{
+		fprintf(stderr, "L%d: can't pop an empty stack\n", data.line_counter);
+		free_leaks(head);
+		exit(EXIT_FAILURE);
+	}
 
 	/* size of list*/
 	while (tmp)

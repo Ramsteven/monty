@@ -31,11 +31,13 @@ int get_lines(char *file)
 void free_dp(char **to_free)
 {
 	int i = 0;
+	if (to_free)
+	{
+		while (*(to_free + i))
+			free(*(to_free + i++));
 
-	while (*(to_free + i))
-		free(*(to_free + i++));
-
-	free(to_free);
+		free(to_free);
+	}
 }
 
 

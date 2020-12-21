@@ -53,3 +53,12 @@ char *allocate_line(FILE *fp)
 
 	return (line);
 }
+
+void free_leaks(stack_t **stack){
+	fclose(data.fp);
+	free(data.line);
+	free_list(*stack);
+	free_dp(data.tokens);
+}
+
+

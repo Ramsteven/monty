@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
 	data.line_counter = 0;
 	data.fp = get_file(argv[1], argc);
 	data.line = allocate_line(data.fp);
+	data.tokens = NULL;
 
 	while (fgets(data.line, LINE_SIZE, data.fp) && ++data.line_counter)
 	{
@@ -21,10 +22,11 @@ int main(int argc, char *argv[])
 		if (!strcmp(*(data.tokens), "push"))
 			if(*(data.tokens + 1) == NULL || (atoi(*(data.tokens + 1)) == 0 && *(*(data.tokens + 1)) != '0'))
 			{
-				fclose(data.fp);
+				free_leaks(&STACK);
+				/*fclose(data.fp);
 				free(data.line);
 				free_list(STACK);
-				free_dp(data.tokens);
+				free_dp(data.tokens);*/
 				fprintf(stderr, "L%d: usage: push integer\n", data.line_counter);
 				exit(EXIT_FAILURE);
 			}
@@ -33,17 +35,20 @@ int main(int argc, char *argv[])
 			get_op(*data.tokens)(&STACK, (*(data.tokens + 1))? atoi(*(data.tokens + 1)): 0);
 		else
 		{
-			fclose(data.fp);
+			/*fclose(data.fp);
 			free(data.line);
-			free_list(STACK);
+			free_list(STACK);*/
 			fprintf(stderr, "L%d: unknown instruction %s\n", data.line_counter, *(data.tokens));
-			free_dp(data.tokens);
+			free_leaks(&STACK);
+	/*free_dp(data.tokens);*/
 			exit(EXIT_FAILURE);
 		}
  		free_dp(data.tokens);
+		data.tokens = NULL;
 	}
-	free_list(STACK);
-	free(data.line);
-	fclose(data.fp);
+	free_leaks(&STACK);
+	/*free_list(STACK);
+	free(data.line);
+	fclose(data.fp);*/
 	return (0);
 }

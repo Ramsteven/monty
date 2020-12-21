@@ -72,4 +72,5 @@ void pint_function(stack_t **stack, unsigned int line_number);
 void pop_function(stack_t **head, unsigned int line_number);
 void free_list(stack_t *head);
 //int pop_function(char *n);
+void free_leaks(stack_t **stack);
 #endif /*MONTY_H*/
