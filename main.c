@@ -23,8 +23,13 @@ int main(int argc, char *argv[])
 	{
 		*(data.line + strlen(data.line) - 1) = '\0';
 		data.tokens = tokenizer(data.line, 32);
-		if (data.tokens == NULL || *(*(data.tokens)) == '#')
+		if (data.tokens == NULL)
 			continue;
+		if (*(*(data.tokens)) == '#')
+		{
+			free_dp(data.tokens);
+			continue;
+		}
 		f_check = get_op(*(data.tokens));
 		if (f_check)
 			f_check(&STACK, line_counter);
