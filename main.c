@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
  		free_dp(tokens);
 	}
 	free_list(STACK);
-	free(line);
+	free(line);
 	fclose(fp);
 	return (0);
 }

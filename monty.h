@@ -38,6 +38,15 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+typedef struct {
+	int line_counter;
+	FILE *fp;
+	char *line;
+	char **tokens;
+} handle_free;
+
+handle_free data;
+
 #define LINE_SIZE 100
 
 /* main_functions.c */
