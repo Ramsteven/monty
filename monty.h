@@ -79,6 +79,7 @@ int stack_len(stack_t *stack);
 stack_t *create_node(void);
 void add_node(stack_t **stack, int n);
 void add_node_end(stack_t **stack, int n);
+int isnumber(char *number);
 
 /* monty_functions.c */
 void push_function(stack_t **stack, unsigned int line_number);

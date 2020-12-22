@@ -11,8 +11,8 @@ void push_function(stack_t **stack, unsigned int line_number)
 {
 	int n = 0;
 
-	if (*(data.tokens + 1) == NULL || (atoi(*(data.tokens + 1)) == 0 &&
-		 *(*(data.tokens + 1)) != '0'))
+	if (*(data.tokens + 1) == NULL || !isnumber(*(data.tokens + 1)) ||
+	(atoi(*(data.tokens + 1)) == 0 && *(*(data.tokens + 1)) != '0'))
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		free_leaks(stack);

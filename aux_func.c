@@ -103,3 +103,26 @@ void add_node_end(stack_t **stack, int n)
 	}
 }
 
+/**
+ * isnumber - Checks if a char array has only digits
+ *
+ * @number: The char array to be checked
+ *
+ * Return: 0 if is invalid. 1 if has only digits
+ */
+
+int isnumber(char *number)
+{
+	int i = 0;
+
+	if (*(number) == 45 && *(number + 1))
+		i++;
+
+	while (*(number + i))
+	{
+		if (*(number + i) < 48 || *(number + i) > 57)
+			return (0);
+		i++;
+	}
+	return (1);
+}
