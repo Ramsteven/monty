@@ -37,3 +37,69 @@ stack_t *create_node(void)
 
 	return (node);
 }
+
+/**
+ * add_node- add node to beggining of the list
+ *@stack: the head of the DLL
+ *@n: number to save
+ * Return: nothing
+ **/
+
+void add_node(stack_t **stack, int n)
+{
+	stack_t *new_node = NULL;
+
+	new_node = create_node();
+	if (new_node == NULL)
+	{
+		free_leaks(stack);
+		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
+	new_node->next = *stack;
+	new_node->prev = NULL;
+	new_node->n = n;
+
+	if (*stack)
+		(*stack)->prev = new_node;
+
+	*stack = new_node;
+}
+
+/**
+ * add_node_end- add node to end of list
+ *@stack: the head of the DLL
+ *@n: number to save
+ * Return: nothing
+ */
+
+void add_node_end(stack_t **stack, int n)
+{
+	stack_t *end;
+	stack_t *tmp = *stack;
+
+	end = create_node();
+	if (end == NULL)
+	{
+		free_leaks(stack);
+		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
+
+	end->n = n;
+	end->next = NULL;
+	end->prev = NULL;
+
+
+	if (*stack == NULL)
+		*stack = end;
+	else
+	{
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+
+		tmp->next = end;
+		end->prev = tmp;
+	}
+}
+

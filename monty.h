@@ -52,10 +52,10 @@ typedef struct handle_s
 	FILE *fp;
 	char *line;
 	char **tokens;
+	char flag;
 } handle_free;
 
 handle_free data;
-
 #define LINE_SIZE 2048
 
 /* main.c */
@@ -77,6 +77,8 @@ void *_calloc(unsigned int nmemb, unsigned int size);
 /* aux_func.c */
 int stack_len(stack_t *stack);
 stack_t *create_node(void);
+void add_node(stack_t **stack, int n);
+void add_node_end(stack_t **stack, int n);
 
 /* monty_functions.c */
 void push_function(stack_t **stack, unsigned int line_number);
@@ -98,5 +100,9 @@ void pchar_function(stack_t **stack, unsigned int line_number);
 void pstr_function(stack_t **stack, unsigned int line_number);
 void rotl_function(stack_t **stack, unsigned int line_number);
 void rotr_function(stack_t **stack, unsigned int line_number);
+
+/*monty_functions3.c*/
+void stack_function(stack_t **stack, unsigned int line_number);
+void queue_function(stack_t **stack, unsigned int line_number);
 
 #endif /*MONTY_H*/

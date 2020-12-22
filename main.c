@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
 	data.fp = get_file(argv[1], argc);
 	data.line = allocate_line(data.fp);
 	data.tokens = NULL;
+	data.flag = 's';
 
 	while (fgets(data.line, LINE_SIZE, data.fp) && ++line_counter)
 	{
@@ -74,6 +75,8 @@ void (*get_op(char *s))(stack_t **stack, unsigned int line_number)
 		{"pstr", pstr_function},
 		{"rotl", rotl_function},
 		{"rotr", rotr_function},
+		{"stack", stack_function},
+		{"queue", queue_function},
 		{NULL, NULL}
 	};
 	int i = 0;

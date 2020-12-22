@@ -9,7 +9,6 @@
 
 void push_function(stack_t **stack, unsigned int line_number)
 {
-	stack_t *new_node = NULL;
 	int n = 0;
 
 	if (*(data.tokens + 1) == NULL || (atoi(*(data.tokens + 1)) == 0 &&
@@ -22,21 +21,10 @@ void push_function(stack_t **stack, unsigned int line_number)
 	else
 		n = atoi(*(data.tokens + 1));
 
-	new_node = create_node();
-	if (new_node == NULL)
-	{
-		free_leaks(stack);
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
-	new_node->next = *stack;
-	new_node->prev = NULL;
-	new_node->n = n;
-
-	if (*stack)
-		(*stack)->prev = new_node;
-
-	*stack = new_node;
+	if (data.flag == 'q')
+		add_node_end(stack, n);
+	else
+		add_node(stack, n);
 }
 
 /**
