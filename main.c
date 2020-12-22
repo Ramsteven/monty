@@ -28,6 +28,7 @@ int main(int argc, char *argv[])
 		if (*(*(data.tokens)) == '#')
 		{
 			free_dp(data.tokens);
+			data.tokens = NULL;
 			continue;
 		}
 		f_check = get_op(*(data.tokens));
