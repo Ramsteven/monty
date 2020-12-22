@@ -72,6 +72,8 @@ void (*get_op(char *s))(stack_t **stack, unsigned int line_number)
 		{"sub", sub_function},
 		{"pchar", pchar_function},
 		{"pstr", pstr_function},
+		{"rotl", rotl_function},
+		{"rotr", rotr_function},
 		{NULL, NULL}
 	};
 	int i = 0;

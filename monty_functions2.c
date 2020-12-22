@@ -88,3 +88,57 @@ void pstr_function(stack_t **stack, unsigned int line_number)
 	}
 	printf("\n");
 }
+
+/**
+ * rotl_function - Top elements become the last element
+ *
+ * @stack: The head of the DLL
+ * @line_number: The number for the new_node
+ *
+ * Return: no return
+ */
+
+void rotl_function(stack_t **stack, unsigned int line_number)
+{
+	stack_t *aux_head = *stack, *tail = *stack;
+
+	if (!(*stack) || !line_number || !(aux_head->next))
+		return;
+
+	while (tail->next)
+		tail = tail->next;
+
+	aux_head->next->prev = NULL;
+	*stack = aux_head->next;
+	tail->next = aux_head;
+	aux_head->next = NULL;
+	aux_head->prev = tail;
+
+}
+
+/**
+ * rotr_function - Last element becomes in top element
+ *
+ * @stack: The head of the DLL
+ * @line_number: The number for the new_node
+ *
+ * Return: no return
+ */
+
+void rotr_function(stack_t **stack, unsigned int line_number)
+{
+	stack_t *aux_head = *stack, *tail = *stack;
+
+	if (!(*stack) || !line_number || !(aux_head->next))
+		return;
+
+	while (tail->next)
+		tail = tail->next;
+
+	tail->prev->next = NULL;
+	tail->prev = NULL;
+	tail->next = *stack;
+	*stack = tail;
+
+
+}

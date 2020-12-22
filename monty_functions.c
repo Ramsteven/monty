@@ -24,7 +24,11 @@ void push_function(stack_t **stack, unsigned int line_number)
 
 	new_node = create_node();
 	if (new_node == NULL)
-		return;
+	{
+		free_leaks(stack);
+		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
 	new_node->next = *stack;
 	new_node->prev = NULL;
 	new_node->n = n;

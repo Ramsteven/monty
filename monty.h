@@ -96,5 +96,7 @@ void div_function(stack_t **stack, unsigned int line_number);
 void mod_function(stack_t **stack, unsigned int line_number);
 void pchar_function(stack_t **stack, unsigned int line_number);
 void pstr_function(stack_t **stack, unsigned int line_number);
+void rotl_function(stack_t **stack, unsigned int line_number);
+void rotr_function(stack_t **stack, unsigned int line_number);
 
 #endif /*MONTY_H*/
