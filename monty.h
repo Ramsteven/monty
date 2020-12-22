@@ -94,5 +94,7 @@ void div_function(stack_t **stack, unsigned int line_number);
 
 /* monty_functions2.c */
 void mod_function(stack_t **stack, unsigned int line_number);
+void pchar_function(stack_t **stack, unsigned int line_number);
+void pstr_function(stack_t **stack, unsigned int line_number);
 
 #endif /*MONTY_H*/

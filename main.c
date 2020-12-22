@@ -70,6 +70,8 @@ void (*get_op(char *s))(stack_t **stack, unsigned int line_number)
 		{"div", div_function},
 		{"mod", mod_function},
 		{"sub", sub_function},
+		{"pchar", pchar_function},
+		{"pstr", pstr_function},
 		{NULL, NULL}
 	};
 	int i = 0;
