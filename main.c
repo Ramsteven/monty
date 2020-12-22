@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 	unsigned int line_counter = 0;
 
 	data.fp = get_file(argv[1], argc);
-	data.line = allocate_line(fp);
+	data.line = allocate_line(data.fp);
 	data.tokens = NULL;
 	data.flag = 's';
 
