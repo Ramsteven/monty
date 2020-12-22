@@ -14,14 +14,13 @@ int main(int argc, char *argv[])
 	void (*f_check)(stack_t **stack, unsigned int line_number);
 	stack_t *STACK = NULL;
 	unsigned int line_counter = 0;
-	size_t readed;
 
 	data.fp = get_file(argv[1], argc);
-	data.line = NULL;
+	data.line = allocate_line(fp);
 	data.tokens = NULL;
 	data.flag = 's';
 
-	while (getline(&data.line, &readed, data.fp) != EOF && ++line_counter)
+	while (fgets(data.line, LINE_SIZE, data.fp) && ++line_counter)
 	{
 		*(data.line + strlen(data.line) - 1) = '\0';
 		data.tokens = tokenizer(data.line, 32);
