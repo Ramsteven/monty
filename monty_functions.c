@@ -10,16 +10,21 @@
 void push_function(stack_t **stack, unsigned int line_number)
 {
 	int n = 0;
+	char *aux = *(data.tokens + 1);
 
 	if (*(data.tokens + 1) == NULL || !isnumber(*(data.tokens + 1)) ||
-	(atoi(*(data.tokens + 1)) == 0 && *(*(data.tokens + 1)) != '0'))
+	(atoi(*(data.tokens + 1)) == 0 && *(*(data.tokens + 1)) != '0' &&
+	strcmp(*(data.tokens + 1), "-0")))
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		free_leaks(stack);
 		exit(EXIT_FAILURE);
 	}
 	else
-		n = atoi(*(data.tokens + 1));
+	{
+		if (!(*(aux) == 45 && *(aux + 1) == 48 && *(aux + 2) == 0))
+			n = atoi(*(data.tokens + 1));
+	}
 
 	if (data.flag == 'q')
 		add_node_end(stack, n);

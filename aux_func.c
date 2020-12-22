@@ -115,7 +115,10 @@ int isnumber(char *number)
 {
 	int i = 0;
 
-	if (*(number) == 45 && *(number + 1))
+	if ((*(number) == 45 && *(number + 1) == 48 && *(number + 2) == 0))
+		return (1);
+
+	if (*(number) == 45 && *(number + 1) != '\0')
 		i++;
 
 	while (*(number + i))
