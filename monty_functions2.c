@@ -68,6 +68,11 @@ void pstr_function(stack_t **stack, unsigned int line_number)
 {
 	stack_t *tmp = *stack;
 
+	if (stack_len(*stack) < (int)line_number)
+	{
+
+	}
+
 	while (tmp)
 	{
 
