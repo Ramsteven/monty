@@ -39,7 +39,7 @@ void pchar_function(stack_t **stack, unsigned int line_number)
 {
 	if (!(*stack))
 	{
-		fprintf(stderr, "L%d: can't pchar, stack empty", line_number);
+		fprintf(stderr, "L%d: can't pchar, stack empty\n", line_number);
 		free_leaks(stack);
 		exit(EXIT_FAILURE);
 	}
@@ -51,7 +51,7 @@ void pchar_function(stack_t **stack, unsigned int line_number)
 	}
 	else
 	{
-		fprintf(stderr, "L%d: can't pchar, value out of range", line_number);
+		fprintf(stderr, "L%d: can't pchar, value out of range\n", line_number);
 		free_leaks(stack);
 		exit(EXIT_FAILURE);
 	}
