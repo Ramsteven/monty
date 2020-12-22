@@ -27,18 +27,18 @@ void mod_function(stack_t **stack, unsigned int line_number)
 }
 
 /**
- * pchar_dnodeint - function that print the ascii characet
+ * pchar_function - function that print the ascii characet
  *
- * @head: The head of the DLL
- * @n: The number for the new_node
+ * @stack: The head of the DLL
+ * @line_number: The number for the new_node
  *
- * Return: The address of the new_node
+ * Return: no return
  */
 
 void pchar_function(stack_t **stack, unsigned int line_number)
 {
-	if(!(*stack))
-	{	
+	if (!(*stack))
+	{
 		fprintf(stderr, "L%d: can't pchar, stack empty", line_number);
 		free_leaks(stack);
 		exit(EXIT_FAILURE);
@@ -47,28 +47,27 @@ void pchar_function(stack_t **stack, unsigned int line_number)
 	if ((*stack)->n > 32 && (*stack)->n < 127)
 	{
 		printf("%c\n", (*stack)->n);
-	
-	} else
+
+	}
+	else
 	{
 		fprintf(stderr, "L%d: can't pchar, value out of range", line_number);
 		free_leaks(stack);
 		exit(EXIT_FAILURE);
 	}
 }
-
-
 /**
- * psrt_dnodeint - function thar print all caracters o a list
+ * pstr_function - function thar print all caracters o a list
  *
- * @head: The head of the DLL
- * @n: The number for the new_node
+ * @stack: The head of the DLL
+ * @line_number: The number for the new_node
  *
- * Return: The address of the new_node
+ * Return: no return
  */
-
 void pstr_function(stack_t **stack, unsigned int line_number)
 {
 	stack_t *tmp = *stack;
+
 	while (tmp)
 	{
 
@@ -77,7 +76,7 @@ void pstr_function(stack_t **stack, unsigned int line_number)
 			printf("%c", tmp->n);
 			tmp = tmp->next;
 		}
-		else if(tmp->n == 0 || 1) 
+		else if (tmp->n == 0 || 1)
 		{
 			break;
 		}

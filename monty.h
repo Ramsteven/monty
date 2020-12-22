@@ -56,7 +56,7 @@ typedef struct handle_s
 
 handle_free data;
 
-#define LINE_SIZE 1024
+#define LINE_SIZE 2048
 
 /* main.c */
 void (*get_op(char *s))(stack_t **stack, unsigned int line_number);
